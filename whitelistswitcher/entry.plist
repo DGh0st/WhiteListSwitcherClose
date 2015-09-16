@@ -1,0 +1,10 @@
+{
+    entry = {
+	bundle = WhitelistSwitcher;
+	cell = PSLinkCell;
+	detail = WhitelistSwitcherListController;
+	icon = WhitelistSwitcher.png;
+	isController = 1;
+	label = WhitelistSwitcher;
+    };
+}

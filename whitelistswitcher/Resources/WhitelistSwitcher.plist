@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<plist version="1.0">
+
+<dict>
+
+	<key>items</key>
+
+	<array>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSGroupCell</string>
+
+			<key>label</key>
+
+			<string>White-list Switcher</string>
+
+			<key>id</key>
+
+			<string>SWITCH_GROUP</string>
+
+			<key>footerText</key>
+
+			<string>Irremovable will make applications not removable from the App Switcher. 
+
+Restart will make applications relaunch rather than close.
+
+Launch will make applications launch rather than close. 
+
+
+
+Launch and Restart take higher priority than Irremovable.
+
+Restart takes higher priority than Launch.
+
+
+
+There is a weird animation(visual bug) when restarting applications.
+
+
+
+Note: Restart and Launch might cause issues on ios 7.</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSSwitchCell</string>
+
+			<key>default</key>
+
+			<false/>
+
+			<key>defaults</key>
+
+			<string>com.dgh0st.whitelistswitcher</string>
+
+			<key>key</key>
+
+			<string>isEnabled</string>
+
+			<key>label</key>
+
+			<string>Enabled</string>
+
+			<key>PostNotification</key>
+
+			<string>com.dgh0st.whitelistswitcher-preferecesChanged</string>
+
+			<key>footerText</key>
+
+			<string>Switch to enable the whole tweak.</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSSwitchCell</string>
+
+			<key>default</key>
+
+			<false/>
+
+			<key>defaults</key>
+
+			<string>com.dgh0st.whitelistswitcher</string>
+
+			<key>key</key>
+
+			<string>msIrremoveable</string>
+
+			<key>label</key>
+
+			<string>Irremoveable Master Switch</string>
+
+			<key>PostNotification</key>
+
+			<string>com.dgh0st.whitelistswitcher-preferecesChanged</string>
+
+			<key>footerText</key>
+
+			<string>Master switch to make all apps irremovable.</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSSwitchCell</string>
+
+			<key>default</key>
+
+			<false/>
+
+			<key>defaults</key>
+
+			<string>com.dgh0st.whitelistswitcher</string>
+
+			<key>key</key>
+
+			<string>msRestartable</string>
+
+			<key>label</key>
+
+			<string>Restartable Master Switch</string>
+
+			<key>PostNotification</key>
+
+			<string>com.dgh0st.whitelistswitcher-preferecesChanged</string>
+
+			<key>footerText</key>
+
+			<string>Master switch to make all apps restartable.</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSSwitchCell</string>
+
+			<key>default</key>
+
+			<false/>
+
+			<key>defaults</key>
+
+			<string>com.dgh0st.whitelistswitcher</string>
+
+			<key>key</key>
+
+			<string>msLaunchable</string>
+
+			<key>label</key>
+
+			<string>Launchable Master Switch</string>
+
+			<key>PostNotification</key>
+
+			<string>com.dgh0st.whitelistswitcher-preferecesChanged</string>
+
+			<key>footerText</key>
+
+			<string>Master switch to make all apps launchable.</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSLinkCell</string>
+
+			<key>bundle</key>
+
+			<string>AppList</string>
+
+			<key>isController</key>
+
+			<true/>
+
+			<key>label</key>
+
+			<string>Irremovable</string>
+
+			<key>ALSettingsPath</key>
+
+			<string>/var/mobile/Library/Preferences/com.dgh0st.whitelistswitcher.plist</string>
+
+			<key>ALSettingsKeyPrefix</key>
+
+			<string>Irremovable-</string>
+
+			<key>ALChangeNotification</key>
+
+			<string>com.dgh0st.whitelistswitcher-preferecesChanged</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSLinkCell</string>
+
+			<key>bundle</key>
+
+			<string>AppList</string>
+
+			<key>isController</key>
+
+			<true/>
+
+			<key>label</key>
+
+			<string>Restartable</string>
+
+			<key>ALSettingsPath</key>
+
+			<string>/var/mobile/Library/Preferences/com.dgh0st.whitelistswitcher.plist</string>
+
+			<key>ALSettingsKeyPrefix</key>
+
+			<string>Restart-</string>
+
+			<key>ALChangeNotification</key>
+
+			<string>com.dgh0st.whitelistswitcher-preferecesChanged</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSLinkCell</string>
+
+			<key>bundle</key>
+
+			<string>AppList</string>
+
+			<key>isController</key>
+
+			<true/>
+
+			<key>label</key>
+
+			<string>Launchable</string>
+
+			<key>ALSettingsPath</key>
+
+			<string>/var/mobile/Library/Preferences/com.dgh0st.whitelistswitcher.plist</string>
+
+			<key>ALSettingsKeyPrefix</key>
+
+			<string>Launch-</string>
+
+			<key>ALChangeNotification</key>
+
+			<string>com.dgh0st.whitelistswitcher-preferecesChanged</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSGroupCell</string>
+
+			<key>footerAlignment</key>
+
+			<integer>1</integer>
+
+			<key>footerText</key>
+
+			<string>WhitelistSwitcher Â© 2015 DGh0st</string>
+
+			<key>isStaticText</key>
+
+			<true/>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key> 		<string>PSLinkCell</string>
+
+			<key>action</key> 	<string>email</string>
+
+			<key>label</key>		<string>Email Support</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key> 		<string>PSLinkCell</string>
+
+			<key>action</key> 	<string>donate</string>
+
+			<key>label</key>		<string>Donate</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key> 		<string>PSLinkCell</string>
+
+			<key>action</key> 	<string>follow</string>
+
+			<key>label</key>		<string>Follow on twitter</string>
+
+		</dict>
+
+	</array>
+
+	<key>title</key>
+
+	<string>White-List Switcher</string>
+
+</dict>
+
+</plist>

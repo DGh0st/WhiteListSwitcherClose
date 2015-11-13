@@ -36,14 +36,6 @@
 
 
 
-@interface SBDeckSwitcherViewController
-
--(SBDisplayItem *)getDisplayItemOfContainer:(id)container;
-
-@end
-
-
-
 @interface SBDeckSwitcherItemContainer
 
 @end

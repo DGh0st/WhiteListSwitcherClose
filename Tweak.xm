@@ -228,15 +228,15 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
     if(PreferencesGetSwitchAppEnabled() && (PreferencesGetLaunch(arg2.displayIdentifier) || PreferencesGetMSLaunchable() || PreferencesGetRestart(arg2.displayIdentifier) || PreferencesGetMSRestartable())){
 
-		return YES;
+	return YES;
 
     } else if(PreferencesGetSwitchAppEnabled() && (PreferencesGetIrremovable(arg2.displayIdentifier) || PreferencesGetMSIrremoveable())){
 
-		return NO;
+	return NO;
 
-	}
+    }
 
-	return %orig;
+    return %orig;
 
 }
 
@@ -295,15 +295,15 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
 		[(SpringBoard *)[UIApplication sharedApplication] launchApplicationWithIdentifier:display.displayIdentifier suspended:NO];
 
-    } else if(PreferencesGetSwitchAppEnabled() && (PreferencesGetLaunch(display.displayIdentifier) || PreferencesGetMSLaunchable())){
+    	} else if(PreferencesGetSwitchAppEnabled() && (PreferencesGetLaunch(display.displayIdentifier) || PreferencesGetMSLaunchable())){
 
-    	[(SpringBoard *)[UIApplication sharedApplication] launchApplicationWithIdentifier:display.displayIdentifier suspended:NO];
+    		[(SpringBoard *)[UIApplication sharedApplication] launchApplicationWithIdentifier:display.displayIdentifier suspended:NO];
 
-    } else {
+	 } else {
 
 		%orig;
 
-    }
+    	 }
 
 }
 
@@ -363,14 +363,14 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)PreferencesChanged, CFSTR("com.dgh0st.whitelistswitcher-preferecesChanged"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
-    if(%c(SBAppSwitcherController) || %c(SBDeckSwitcherViewController)){
+	if(%c(SBAppSwitcherController) || %c(SBDeckSwitcherViewController)){
 
 		%init(ios8plus);
 
-    } else if(%c(SBAppSliderController)){
+    	} else if(%c(SBAppSliderController)){
 
 		%init(ios7);
 
-    }
+    	}
 
 }

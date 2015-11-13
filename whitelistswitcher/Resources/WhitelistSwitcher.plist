@@ -27,25 +27,11 @@
 			<key>footerText</key>
 
 			<string>Irremovable will make applications not removable from the App Switcher. 
-
 Restart will make applications relaunch rather than close.
-
 Launch will make applications launch rather than close. 
 
-
-
 Launch and Restart take higher priority than Irremovable.
-
-Restart takes higher priority than Launch.
-
-
-
-There is a weird animation(visual bug) when restarting applications.
-
-
-
-Note: Restart and Launch might cause issues on ios 7.</string>
-
+Restart takes higher priority than Launch.</string>
 		</dict>
 
 		<dict>
@@ -278,17 +264,16 @@ Note: Restart and Launch might cause issues on ios 7.</string>
 
 			<string>PSGroupCell</string>
 
-			<key>footerAlignment</key>
+			<key>label</key>
 
-			<integer>1</integer>
+			<string>Credits</string>
 
 			<key>footerText</key>
 
-			<string>WhitelistSwitcher Â© 2015 DGh0st</string>
+			<string>Known bugs: A split second of your background when launching application through launchable (iOS 9).
+There is a weird animation(visual bug) when restarting applications (iOS 8).
 
-			<key>isStaticText</key>
-
-			<true/>
+Note: Restart and Launch might cause issues on ios 7, as they are untested.</string>
 
 		</dict>
 
@@ -319,6 +304,26 @@ Note: Restart and Launch might cause issues on ios 7.</string>
 			<key>action</key> 	<string>follow</string>
 
 			<key>label</key>		<string>Follow on twitter</string>
+
+		</dict>
+
+		<dict>
+
+			<key>cell</key>
+
+			<string>PSGroupCell</string>
+
+			<key>footerAlignment</key>
+
+			<integer>1</integer>
+
+			<key>footerText</key>
+
+			<string>WhitelistSwitcher © 2015 DGh0st</string>
+
+			<key>isStaticText</key>
+
+			<true/>
 
 		</dict>
 

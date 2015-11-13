@@ -20,9 +20,9 @@
 
 @interface SBAppSliderController
 
--(BOOL)sliderScroller:(id)arg1 isIndexRemovable:(unsigned NSInteger)arg2 ;
+-(BOOL)sliderScroller:(id)arg1 isIndexRemovable:(NSInteger)arg2 ;
 
--(id)_displayIDAtIndex:(unsigned NSInteger)arg1 ;
+-(id)_displayIDAtIndex:(NSInteger)arg1 ;
 
 @end
 
@@ -31,6 +31,38 @@
 @interface SBApplicationPlaceHolder
 
 -(BOOL)icon:(id)arg1 launchFromLocation:(int)arg2 ;
+
+@end
+
+
+
+@interface SBDeckSwitcherViewController
+
+-(SBDisplayItem *)getDisplayItemOfContainer:(id)container;
+
+@end
+
+
+
+@interface SBDeckSwitcherItemContainer
+
+@end
+
+
+
+@interface UIApplication (WhitelistSwitcher)
+
++(id)sharedApplication;
+
+-(BOOL)launchApplicationWithIdentifier:(id)arg1 suspended:(BOOL)arg2;
+
+@end
+
+
+
+@interface SpringBoard
+
+-(BOOL)launchApplicationWithIdentifier:(id)arg1 suspended:(BOOL)arg2;
 
 @end
 
@@ -100,19 +132,19 @@ static BOOL PreferencesGetIrremovable(NSString *appId) {
 
     for (NSString *key in allKeys) {
 
-	if ([key hasPrefix:@"Irremovable-"] && CFPreferencesGetAppIntegerValue((CFStringRef)key, CFSTR("com.dgh0st.whitelistswitcher"), NULL)) {
+		if ([key hasPrefix:@"Irremovable-"] && CFPreferencesGetAppIntegerValue((CFStringRef)key, CFSTR("com.dgh0st.whitelistswitcher"), NULL)) {
 
-	    NSString *tempId = [key substringFromIndex:[@"Irremovable-" length]];
+		    NSString *tempId = [key substringFromIndex:[@"Irremovable-" length]];
 
-	    if ([tempId isEqual:appId]) {
+		    if ([tempId isEqual:appId]) {
 
-		result = YES;
+			result = YES;
 
-		break;
+			break;
 
-	    }
+		    }
 
-	}
+		}
 
     }
 
@@ -132,19 +164,19 @@ static BOOL PreferencesGetRestart(NSString *appId) {
 
     for (NSString *key in allKeys) {
 
-	if ([key hasPrefix:@"Restart-"] && CFPreferencesGetAppIntegerValue((CFStringRef)key, CFSTR("com.dgh0st.whitelistswitcher"), NULL)) {
+		if ([key hasPrefix:@"Restart-"] && CFPreferencesGetAppIntegerValue((CFStringRef)key, CFSTR("com.dgh0st.whitelistswitcher"), NULL)) {
 
-	    NSString *tempId = [key substringFromIndex:[@"Restart-" length]];
+		    NSString *tempId = [key substringFromIndex:[@"Restart-" length]];
 
-	    if ([tempId isEqual:appId]) {
+		    if ([tempId isEqual:appId]) {
 
-		result = YES;
+			result = YES;
 
-		break;
+			break;
 
-	    }
+		    }
 
-	}
+		}
 
     }
 
@@ -164,19 +196,19 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
     for (NSString *key in allKeys) {
 
-	if ([key hasPrefix:@"Launch-"] && CFPreferencesGetAppIntegerValue((CFStringRef)key, CFSTR("com.dgh0st.whitelistswitcher"), NULL)) {
+		if ([key hasPrefix:@"Launch-"] && CFPreferencesGetAppIntegerValue((CFStringRef)key, CFSTR("com.dgh0st.whitelistswitcher"), NULL)) {
 
-	    NSString *tempId = [key substringFromIndex:[@"Launch-" length]];
+		    NSString *tempId = [key substringFromIndex:[@"Launch-" length]];
 
-	    if ([tempId isEqual:appId]) {
+		    if ([tempId isEqual:appId]) {
 
-		result = YES;
+			result = YES;
 
-		break;
+			break;
 
-	    }
+		    }
 
-	}
+		}
 
     }
 
@@ -196,7 +228,7 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
     if(PreferencesGetSwitchAppEnabled() && (PreferencesGetLaunch(arg2.displayIdentifier) || PreferencesGetMSLaunchable() || PreferencesGetRestart(arg2.displayIdentifier) || PreferencesGetMSRestartable())){
 
-	return YES;
+		return YES;
 
     } else if(PreferencesGetSwitchAppEnabled() && (PreferencesGetIrremovable(arg2.displayIdentifier) || PreferencesGetMSIrremoveable())){
 
@@ -230,6 +262,53 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
 %end
 
+
+
+%hook SBDeckSwitcherViewController
+
+- (_Bool)isDisplayItemOfContainerRemovable:(SBDeckSwitcherItemContainer *)arg1 {
+
+	SBDisplayItem *arg2 = MSHookIvar<SBDisplayItem *>(arg1, "_displayItem");
+
+	if(PreferencesGetSwitchAppEnabled() && (PreferencesGetMSLaunchable() || PreferencesGetMSRestartable() || PreferencesGetLaunch(arg2.displayIdentifier) || PreferencesGetRestart(arg2.displayIdentifier))){
+
+		return YES;
+
+	}
+	if(PreferencesGetSwitchAppEnabled() && (PreferencesGetIrremovable(arg2.displayIdentifier) || PreferencesGetMSIrremoveable())){
+
+		return NO;
+
+	}
+
+	return %orig;
+
+}
+
+- (void)killDisplayItemOfContainer:(SBDeckSwitcherItemContainer *)arg1 withVelocity:(CGFloat)arg2 {
+
+	SBDisplayItem *display = MSHookIvar<SBDisplayItem *>(arg1, "_displayItem");
+
+	if(PreferencesGetSwitchAppEnabled() && (PreferencesGetRestart(display.displayIdentifier) || PreferencesGetMSRestartable())){
+
+		%orig;
+
+		[(SpringBoard *)[UIApplication sharedApplication] launchApplicationWithIdentifier:display.displayIdentifier suspended:NO];
+
+    } else if(PreferencesGetSwitchAppEnabled() && (PreferencesGetLaunch(display.displayIdentifier) || PreferencesGetMSLaunchable())){
+
+    	[(SpringBoard *)[UIApplication sharedApplication] launchApplicationWithIdentifier:display.displayIdentifier suspended:NO];
+
+    } else {
+
+		%orig;
+
+    }
+
+}
+
+%end
+
 %end
 
 
@@ -238,15 +317,15 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
 %hook SBAppSliderController
 
--(BOOL)sliderScroller:(id)arg1 isIndexRemovable:(unsigned NSInteger)arg2 {
+-(BOOL)sliderScroller:(id)arg1 isIndexRemovable:(NSInteger)arg2 {
 
     if(PreferencesGetSwitchAppEnabled() && (PreferencesGetLaunch([self _displayIDAtIndex:arg2]) || PreferencesGetMSLaunchable() || PreferencesGetRestart([self _displayIDAtIndex:arg2]) || PreferencesGetMSRestartable())){
 
-	return YES;
+		return YES;
 
     } else if(PreferencesGetSwitchAppEnabled() && (PreferencesGetIrremovable([self _displayIDAtIndex:arg2]) || PreferencesGetMSIrremoveable())){
 
-	return NO;
+		return NO;
 
     }
 
@@ -254,21 +333,21 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
 }
 
--(void)sliderScroller:(id)arg1 itemWantsToBeRemoved:(unsigned NSInteger)arg2 {
+-(void)sliderScroller:(id)arg1 itemWantsToBeRemoved:(NSInteger)arg2 {
 
     if(PreferencesGetSwitchAppEnabled() && (PreferencesGetRestart([self _displayIDAtIndex:arg2]) || PreferencesGetMSRestartable())){
 
-	%orig;
+		%orig;
 
-	[%c(SBApplicationPlaceHolder) icon:[self _displayIDAtIndex:arg2] launchFromLocation:1];
+		[%c(SBApplicationPlaceHolder) icon:[self _displayIDAtIndex:arg2] launchFromLocation:1];
 
     } else if(PreferencesGetSwitchAppEnabled() && (PreferencesGetLaunch([self _displayIDAtIndex:arg2]) || PreferencesGetMSLaunchable())){
 
-	[%c(SBApplicationPlaceHolder) icon:[self _displayIDAtIndex:arg2] launchFromLocation:1];
+		[%c(SBApplicationPlaceHolder) icon:[self _displayIDAtIndex:arg2] launchFromLocation:1];
 
     } else {
 
-	%orig;
+		%orig;
 
     }
 
@@ -284,7 +363,7 @@ static BOOL PreferencesGetLaunch(NSString *appId) {
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)PreferencesChanged, CFSTR("com.dgh0st.whitelistswitcher-preferecesChanged"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
-    if(%c(SBAppSwitcherController)){
+    if(%c(SBAppSwitcherController) || %c(SBDeckSwitcherViewController)){
 
 		%init(ios8plus);
 
